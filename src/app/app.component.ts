@@ -12,6 +12,7 @@ import { LinkComponent } from './ui/components/link.component';
       <nav>
         <ul><strong><a routerLink="/">{{title}}</a></strong></ul>
         <ul><a routerLink="/about">About us</a></ul>
+        <ul><a routerLink="/contact">Contact us</a></ul>
       </nav>
     </header>
     <router-outlet></router-outlet>
