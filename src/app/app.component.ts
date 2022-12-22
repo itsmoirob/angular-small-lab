@@ -1,31 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { LinkComponent } from './ui/components/link.component';
 
 @Component({
   selector: 'lab-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LinkComponent, RouterOutlet, RouterLink],
   template: `
     <header>
-      <a> {{ title }} </a>
+      <nav>
+        <ul><strong><a routerLink="/">{{title}}</a></strong></ul>
+        <ul><a routerLink="/about">About us</a></ul>
+      </nav>
     </header>
-    <article>
-      <header>
-        <h1>Angular Laboratory for <em>small</em> applications</h1>
-        <h2>Standalone edition</h2>
-      </header>
-      <main>
-        <ul>
-          <li>🏝️ Full Standalone APIs ✅</li>
-          <li>🗺️ Lazy Route Components ✅</li>
-          <li>📺 Container (page)✅ - Presenters (form, table...) ❌</li>
-          <li>🧪 E2E Testing ❌</li>
-        </ul>
-      </main>
-    </article>
+    <router-outlet></router-outlet>
     <footer>
       <a [href]="repoUrl" target="_blank">Repository code on GitHub </a>
-      ©️ {{ year }} by <a [href]="authorUrl" target="_blank"> {{ author }} </a>
+      ©️ {{ year }} by <lab-link [href]="repoUrl" caption="Repository code on GitHub"></lab-link>
     </footer>
   `,
 })
@@ -33,6 +25,4 @@ export class AppComponent {
   title = '🅰️ 🌱 🧫 angular-small-lab';
   repoUrl = 'https://github.com/AlbertoBasalo/angular-small-lab';
   year = new Date().getFullYear();
-  author = 'Alberto Basalo';
-  authorUrl = 'http://albertobasalo.dev';
 }
