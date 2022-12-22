@@ -1,42 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { LinkComponent } from 'src/app/ui/components/link.component';
+import { Component, inject } from '@angular/core';
+import { AboutService } from './about.service';
+import { AuthorView } from './author.view';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LinkComponent],
-  template: `
-    <article>
-      <header>
-        <h4>A suite of labs for applications of any size with Angular</h4>
-        <h3>
-          Developed by
-          <lab-link [href]="author.www" [caption]="author.name"></lab-link>
-        </h3>
-      </header>
-      <main>
-        <ul>
-          <li>
-            <lab-link [href]="author.twitter" caption="Twitter"></lab-link>
-          </li>
-          <li>
-            <lab-link [href]="author.linkedIn" caption="LinkedIn"></lab-link>
-          </li>
-          <li>
-            <lab-link [href]="author.github" caption="GitHub"></lab-link>
-          </li>
-        </ul>
-      </main>
-    </article>
-  `,
-  styles: [],
+  imports: [CommonModule, AuthorView],
+  providers: [{ provide: AboutService, useValue: new AboutService() }],
+  template: ` <lab-author-view [author]="author"></lab-author-view>`,
 })
 export default class AboutPage {
-  author: any = {
-    name: 'Robert Sherman',
-    www: 'https://www.albertobasalo.dev',
-    github: 'https://github.com/itsmoirob',
-    linkedIn: 'https://www.linkedin.com/in/albertobasalo/',
-    twitter: 'https://twitter.com/itsmoirob',
-  };
+  author = inject(AboutService).getAuthor();
 }
